@@ -25,9 +25,11 @@ Shader "Unlit/USB_simple_color"
 
         [PowerSlider(3.0)]
         _Brightness ("Brightness", Range (0.01, 1)) = 0.08
-        [IntRange]
-        _Samples ("Samples", Range (0, 255)) = 100
 
+        [IntRange]
+        _Samples ("IntRange", Range (0, 255)) = 100
+
+        [Header(Specular properties)]
         _PropertyName01 ("Space1", Float ) = 0
         // add space
         [Space(10)]
@@ -35,8 +37,10 @@ Shader "Unlit/USB_simple_color"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "Queue"="Geometry" }
         LOD 100
+
+        Cull [_Face]
 
         Pass
         {
@@ -114,8 +118,6 @@ Shader "Unlit/USB_simple_color"
                     return col * float4(0, 0, 1, 1);
                 #endif
             }
-
-            
 
             ENDCG
         }
